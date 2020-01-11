@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Alucard/CLionProjects/Teste1/Lista_Encadeada.h
+
+C:/Users/Alucard/CLionProjects/Teste1/main.cpp
+iostream
+-
+locale.h
+-
+stdlib.h
+-
+Lista_Encadeada.h
+C:/Users/Alucard/CLionProjects/Teste1/Lista_Encadeada.h
+

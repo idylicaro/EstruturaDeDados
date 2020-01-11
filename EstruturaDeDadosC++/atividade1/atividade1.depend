@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1572465351 source:c:\users\alucard\desktop\estruturadedadosc++\atividade1\main.cpp
+	<iostream>
+	<locale.h>
+	<stdlib.h>
+	"LISTA_ARRANHO.h"
+
+1572465740 c:\users\alucard\desktop\estruturadedadosc++\atividade1\lista_arranho.h
+

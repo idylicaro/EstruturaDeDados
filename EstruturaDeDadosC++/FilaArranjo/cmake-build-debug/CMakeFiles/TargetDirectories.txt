@@ -1,0 +1,3 @@
+C:/Users/Alucard/CLionProjects/FilaArranjo/cmake-build-debug/CMakeFiles/FilaArranjo.dir
+C:/Users/Alucard/CLionProjects/FilaArranjo/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Alucard/CLionProjects/FilaArranjo/cmake-build-debug/CMakeFiles/rebuild_cache.dir

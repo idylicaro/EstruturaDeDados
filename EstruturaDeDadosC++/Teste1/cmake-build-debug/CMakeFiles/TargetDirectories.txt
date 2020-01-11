@@ -1,0 +1,3 @@
+C:/Users/Alucard/CLionProjects/Teste1/cmake-build-debug/CMakeFiles/Teste1.dir
+C:/Users/Alucard/CLionProjects/Teste1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Alucard/CLionProjects/Teste1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

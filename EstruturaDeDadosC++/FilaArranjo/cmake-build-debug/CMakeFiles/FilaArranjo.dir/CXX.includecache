@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Alucard/CLionProjects/FilaArranjo/FilaBackend.h
+iostream
+-
+
+C:/Users/Alucard/CLionProjects/FilaArranjo/main.cpp
+iostream
+-
+FilaBackend.h
+C:/Users/Alucard/CLionProjects/FilaArranjo/FilaBackend.h
+
