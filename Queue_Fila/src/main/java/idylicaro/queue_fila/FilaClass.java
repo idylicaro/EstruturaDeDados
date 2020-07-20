@@ -38,7 +38,7 @@ public class FilaClass {
         nItems--;
         return auxTemp;
     }
-     
+   
     public int viewFront(){
         return array[frente];
     }
@@ -52,8 +52,4 @@ public class FilaClass {
         return nItems;
     }
 
-    void remove(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
