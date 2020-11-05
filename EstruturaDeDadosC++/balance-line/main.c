@@ -43,8 +43,8 @@ int main(){
     fMestre = fopen("Mestre.dat","r");
     fTransacoes = fopen("Transacoes.dat","r");
 
-    fNovoMestre = fopen("NovoMestre.dat","r w");
-    fErro = fopen("Erro.dat","r w");
+    fNovoMestre = fopen("NovoMestre.dat","w");
+    fErro = fopen("Erro.dat","w");
 
     if((fMestre == NULL) || (fTransacoes == NULL)) {
         printf("\n Erro ao abrir o arquivo");
@@ -56,6 +56,7 @@ int main(){
     //TODO
     //IMPRIMIR O NOVO ARQUIVO MESTRE
     printf("\n===IMPRIMINDO O NOVO ARQUIVO MESTRE===");
+    rewind(fNovoMestre);
     leNovoMestre(fNovoMestre);
     //IMPRIMIR O ARQUIVO DE ERRO
     printf("\n===IMPRIMINDO O ARQUIVO DE ERRO===");

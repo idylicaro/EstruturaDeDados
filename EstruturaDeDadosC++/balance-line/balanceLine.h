@@ -3,6 +3,10 @@
 
 #include <stdio.h> /* define FILE */
 #include <stdlib.h>
+#include <string.h> /*strcmp*/
+typedef int bool;
+#define true 1
+#define false 0
 
 void balanceLine(FILE *fMestre, FILE *fTransacao, FILE *fNovoMestre, FILE *fErro){
     /* TODO:
@@ -22,39 +26,54 @@ void balanceLine(FILE *fMestre, FILE *fTransacao, FILE *fNovoMestre, FILE *fErro
      *      * avançar os indicadores de topo de pilha de ambas as pilhas.
      * */
 
+    bool needTChange = true, needMChange = true; //flags
+    long int beforeCursorT = 0;
     TTransacao *t;
-    while ((t = leTransacao(fTransacao)) != NULL){
-        TCliente *c; // client Master file
-        while ((c = leCliente(fMestre)) != NULL){
-            if (c->codCliente < t->codCliente){
-                salvaCliente(c,fNovoMestre);
-            }else if(c->codCliente > t->codCliente){
-                if(t->tipoTransacao == 'E' || t->tipoTransacao == 'M'){// E == excluir || M == Modificar
-                    salvaTransacao(t, fErro);  //salva no log de error
-                }else if (t->tipoTransacao == 'I'){
-                    TCliente *cAux = Cliente(t->codCliente, t->valor01, t->valor02);
-                    salvaCliente(cAux, fNovoMestre);
-                    free(cAux);
-                }
-                break; // indicador de topo da pilha de transações +1
+    TCliente *c; // client Master file
+    do{
+        fseek(fTransacao,beforeCursorT,SEEK_SET); // back cursor at before position
 
-            } else if(c->codCliente == t->codCliente){
-                if(t->tipoTransacao == 'E'){// E == excluir
-                    break;
-                }else if(t->tipoTransacao == 'M'){
-                    if(t->valor01 == "Nome"){
-                        strcpy(c->nome, t->valor02);
-                    }else{
-                        strcpy(c->dataNascimento, t->valor02);
-                    }
-                    salvaCliente(c, fNovoMestre);
-                    break;
-                }
+        if (needMChange)
+            c = leCliente(fMestre);
+        if (needTChange)
+            t = leTransacao(fTransacao);
 
+        needMChange = false;
+        needTChange = false;
+
+        if (c->codCliente < t->codCliente){
+            salvaCliente(c,fNovoMestre);
+            // activate flag
+            needMChange = true;
+        }else if(c->codCliente > t->codCliente){
+            if(t->tipoTransacao == 'E' || t->tipoTransacao == 'M'){// E == excluir || M == Modificar
+                salvaTransacao(t, fErro);  //salva no log de error
+            }else if (t->tipoTransacao == 'I'){
+                TCliente *cAux = Cliente(t->codCliente, t->valor01, t->valor02);
+                salvaCliente(cAux, fNovoMestre);
+                free(cAux);
             }
+            // activate flag
+            needTChange = true;
+            continue;
 
+        } else if(c->codCliente == t->codCliente){
+             if(t->tipoTransacao == 'M'){
+                 if ( strcmp(t->valor01,"Nome") != 0 ) { // t->valor01 != "nome"
+                     strcpy(c->dataNascimento, t->valor02);
+                 } else {
+                     strcpy(c->nome, t->valor02);
+                 }
+                 salvaCliente(c, fNovoMestre);
+             }else if (t->tipoTransacao == 'I'){
+                 salvaTransacao(t, fErro);
+             }
+            // activate flag
+            needTChange = true;
+            needMChange = true;
+            continue;
         }
-    }
-
+        beforeCursorT = ftell(fTransacao);
+    }while (leTransacao(fTransacao) != NULL);
 }
 #endif //BALANCE_LINE_BALANCELINE_H
