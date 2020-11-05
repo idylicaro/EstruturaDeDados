@@ -49,5 +49,21 @@ void leMestre(){
 
 }
 
+void leNovoMestre(FILE *fMestre){
+
+    if(fMestre == NULL) {
+        printf("\n Erro ao abrir o arquivo MESTRE");
+        exit(1);
+    }
+
+    TCliente *c;
+    while ((c = leCliente(fMestre)) != NULL)
+        imprimeCliente(c);
+    free(c);
+
+    fclose(fMestre);
+
+}
+
 
 #endif //BALANCE_LINE_LEMESTRE_H
