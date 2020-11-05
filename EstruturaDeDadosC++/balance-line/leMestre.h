@@ -1,7 +1,7 @@
 #ifndef BALANCE_LINE_LEMESTRE_H
 #define BALANCE_LINE_LEMESTRE_H
 
-\* Lê os dados formatados do arquivo MESTRE */
+/* Lê os dados formatados do arquivo MESTRE */
 
 #include <stdio.h> /* define FILE */
 #include <stdlib.h>
