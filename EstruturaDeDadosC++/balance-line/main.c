@@ -53,17 +53,20 @@ int main(){
 
     balanceLine(fMestre, fTransacoes, fNovoMestre, fErro);
 
-    //TODO
-    //IMPRIMIR O NOVO ARQUIVO MESTRE
-    printf("\n===IMPRIMINDO O NOVO ARQUIVO MESTRE===");
-    leNovoMestre(fNovoMestre);
-    //IMPRIMIR O ARQUIVO DE ERRO
-    printf("\n===IMPRIMINDO O ARQUIVO DE ERRO===");
-
     fclose(fMestre);
     fclose(fTransacoes);
     fclose(fNovoMestre);
     fclose(fErro);
 
+    //TODO
+    //IMPRIMIR O NOVO ARQUIVO MESTRE
+    printf("\n===IMPRIMINDO O NOVO ARQUIVO MESTRE===");
+    //rewind(fNovoMestre);
+    leNovoMestre();
+    //IMPRIMIR O ARQUIVO DE ERRO
+    printf("\n===IMPRIMINDO O ARQUIVO DE ERRO===");
+    leLogError();
+
     return 0;
 }
+

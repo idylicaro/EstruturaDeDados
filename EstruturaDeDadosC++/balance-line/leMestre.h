@@ -49,7 +49,10 @@ void leMestre(){
 
 }
 
-void leNovoMestre(FILE *fMestre){
+void leNovoMestre(){
+    FILE *fMestre; /* ponteiro para arquivo */
+
+    fMestre = fopen("NovoMestre.dat","r");
 
     if(fMestre == NULL) {
         printf("\n Erro ao abrir o arquivo MESTRE");

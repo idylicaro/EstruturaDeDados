@@ -51,5 +51,25 @@ void leTransacoes(){
     fclose(fTransacao);
 
 }
+void leLogError(){
+    FILE *fError; /* ponteiro para arquivo */
+
+    fError = fopen("Erro.dat", "r");
+
+    if(fError == NULL) {
+        printf("\n Erro ao abrir o arquivo TRANSAÇÕES");
+        exit(1);
+    }
+
+    TTransacao *t;
+    while ((t = leTransacao(fError)) != NULL)
+        imprimeTransacao(t);
+    free(t);
+
+    fclose(fError);
+
+}
+
+
 
 #endif //BALANCE_LINE_LETRANSACOES_H

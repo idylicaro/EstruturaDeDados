@@ -23,12 +23,14 @@ void criaTransacoes(){
     TTransacao *t1 = Transacao(11,'E', "", "");
     TTransacao *t2 = Transacao(17,'M', "Nome", "Maria");
     TTransacao *t3 = Transacao(18,'I', "Andrea", "02/04/1990");
-    TTransacao *t4 = Transacao(26,'I', "Jonas", "03/07/2002");
+    TTransacao *t4 = Transacao(20,'I', "idyl", "03/07/2002");
+    TTransacao *t5 = Transacao(26,'I', "Jonas", "03/07/2002");
 
     salvaTransacao(t1, fTransacoes);
     salvaTransacao(t2, fTransacoes);
     salvaTransacao(t3, fTransacoes);
     salvaTransacao(t4, fTransacoes);
+    salvaTransacao(t5, fTransacoes);
 
     fclose(fTransacoes);
 }
