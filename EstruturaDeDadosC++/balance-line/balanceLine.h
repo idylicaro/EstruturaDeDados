@@ -62,6 +62,7 @@ void balanceLine(FILE *fMestre, FILE *fTransacao, FILE *fNovoMestre, FILE *fErro
                     salvaCliente(c, fNovoMestre);
                 }else if (t->tipoTransacao == 'I'){
                     salvaTransacao(t, fErro);
+                    salvaCliente(c,fNovoMestre);
                 }
                 // activate flag
                 needTChange = true;

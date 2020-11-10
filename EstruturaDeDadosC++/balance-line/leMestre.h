@@ -55,7 +55,7 @@ void leNovoMestre(){
     fMestre = fopen("NovoMestre.dat","r");
 
     if(fMestre == NULL) {
-        printf("\n Erro ao abrir o arquivo MESTRE");
+        printf("\n Erro ao abrir o arquivo NOVO MESTRE");
         exit(1);
     }
 
