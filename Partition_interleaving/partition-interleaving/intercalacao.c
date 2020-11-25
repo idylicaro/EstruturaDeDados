@@ -3,6 +3,7 @@
 #endif
 
 #include <stdlib.h>
+#include <string.h>
 #include "intercalacao.h"
 #include "nomes.h"
 #include "cliente.h"
@@ -106,17 +107,27 @@ void intercalacao_arv_vencedores(char *nome_arquivo_saida, int num_p, Nomes *nom
 
 void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_particoes, int f) {
     FILE *out;
-    FILE **p = malloc(3 * sizeof(FILE));  // need ** because in array element need to be FILE pointer
+    FILE **p = malloc(3 * sizeof(FILE));  // need ** because in array element need to be FILE pointer / p is vector of partitions
+    int idLastPartition = NULL;
+    char *lastPartitionName;
 
     if ((out = fopen(nome_arquivo_saida, "wb")) == NULL) {
         printf("Erro ao abrir arquivo de sa?da\n");
     }else{
         do{
+            int count_partitions_in_use = 0;
             for (int i = 0; i < (f - 1); i++) {
-                if (nome_particoes == NULL) { break; }
                 p[i] = fopen(nome_particoes->nome, "rw");
+                count_partitions_in_use++;
+                if (nome_particoes->prox == NULL) {
+                    lastPartitionName = nome_particoes->nome;
+                    break;
+                }
                 nome_particoes = nome_particoes->prox;
             }
+            idLastPartition = catchPartitionId(lastPartitionName);
+
+            //
 
         }while (num_p > 1);
     }// Fim do primeiro else
@@ -133,4 +144,13 @@ int countPartitions(FILE **p, int sizeP){
         rewind(p[i]);
     }
     return count;
+}
+int catchPartitionId(const char *name){
+    char aux[20] = "";
+    int i =1, j =0;
+    while (name[i] != '.'){
+        aux[j] = name[i];
+        i++;j++;
+    }
+    return strtol(aux, NULL, 10);
 }

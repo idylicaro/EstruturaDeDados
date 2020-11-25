@@ -28,7 +28,7 @@ void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_partico
 
 // utility functions
 int countPartitions(FILE **p, int sizeP);
-
+int catchPartitionId(const char *name);
 #endif
 
 #endif //PARTITION_INTERLEAVING_INTERCALACAO_H
