@@ -29,27 +29,14 @@ int inverte_nomes_test(){
         nomes = nomes->prox;
     return first == nomes->nome ? TRUE:FALSE;
 }
-int count_partitions_in_File_Array(){
-    int f = 4,result;
-    nomes = cria_nomes(cria_str("p1.dat"), cria_nomes(cria_str("p2.dat"), NULL));
-    FILE **p = malloc(3 * sizeof(FILE));
-    for(int i =0; i < (f-1);i++){
-        if(nomes == NULL){
-            break;
-        }
-        p[i] = fopen(nomes->nome, "rw");
-        nomes = nomes->prox;
-    }
-    result = (countPartitions(p,f) == 2)? TRUE:FALSE;
-    for(int i =0; i < (f-1);i++){
-        fclose(p[i]);
-    }
-    return result;
+int catch_id_partition(char * name,int expectedId){
+    return (catchPartitionId(name) == expectedId)? TRUE:FALSE;
 }
 void runUnitTests(){
     printf("========= UNIT TESTS ========\n");
     UnitTest(TRUE,inverte_nomes_test(),"Ensures the behavior of the function that inverts the list of names");
-    UnitTest(TRUE,count_partitions_in_File_Array(),"Ensure count_partitions returns correct value");
+    UnitTest(TRUE,catch_id_partition("p2.dat",2),"Ensure catch_id_partition returns correct value");
+    UnitTest(TRUE,catch_id_partition("p22.dat",22),"Ensure catch_id_partition returns correct value");
     printf("\n================================================================================================\n\n");
 }
 
