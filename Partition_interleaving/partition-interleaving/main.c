@@ -11,6 +11,48 @@
 
 Nomes *nomes = NULL;
 
+#define TRUE 1
+#define FALSE 0
+void UnitTest(int expected, int actual, const char* testName){
+    if(expected == actual){
+        printf("\n>> %s -> PASSED \n", testName);
+    }else{
+        printf("\n>> %s -> FAILED [expected: %d | actual: %d]\n",testName,expected,actual);
+    }
+}
+
+int inverte_nomes_test(){
+    nomes = cria_nomes(cria_str("p1.dat"), cria_nomes(cria_str("p2.dat"), NULL));
+    char *first = nomes->nome;
+    inverte_nomes(nomes);
+    while (nomes->prox != NULL)
+        nomes = nomes->prox;
+    return first == nomes->nome ? TRUE:FALSE;
+}
+int count_partitions_in_File_Array(){
+    int f = 4,result;
+    nomes = cria_nomes(cria_str("p1.dat"), cria_nomes(cria_str("p2.dat"), NULL));
+    FILE **p = malloc(3 * sizeof(FILE));
+    for(int i =0; i < (f-1);i++){
+        if(nomes == NULL){
+            break;
+        }
+        p[i] = fopen(nomes->nome, "rw");
+        nomes = nomes->prox;
+    }
+    result = (countPartitions(p,f) == 2)? TRUE:FALSE;
+    for(int i =0; i < (f-1);i++){
+        fclose(p[i]);
+    }
+    return result;
+}
+void runUnitTests(){
+    printf("========= UNIT TESTS ========\n");
+    UnitTest(TRUE,inverte_nomes_test(),"Ensures the behavior of the function that inverts the list of names");
+    UnitTest(TRUE,count_partitions_in_File_Array(),"Ensure count_partitions returns correct value");
+    printf("\n================================================================================================\n\n");
+}
+
 void teste01(){
     printf("=============================================================================\n");
     printf("Teste 1 Intercalacao Basico. Arquivo p1.dat vazio deve criar saida.dat vazio.\n");
@@ -201,8 +243,43 @@ int teste03(){
     free(c);
 }
 
+void teste04(){
+    printf("============================================\n");
+    printf("Teste 4 Intercalacao OTIMA. Duas particoes.\n");
+    printf("============================================\n");
+    ListaClientes *entrada, *saida;
+
+    nomes = cria_nomes(cria_str("p1.dat"), cria_nomes(cria_str("p2.dat"), NULL));
+
+    entrada = cria_clientes(2,
+                            cliente(1, "Joao"),
+                            cliente(5, "Maria"));
+    salva_clientes("p1.dat", entrada);
+    libera_clientes(entrada);
+
+    entrada = cria_clientes(4,
+                            cliente(3, "Marcos"),
+                            cliente(6, "Ana"),
+                            cliente(7, "Bia"),
+                            cliente(10, "Joaquim"));
+    salva_clientes("p2.dat", entrada);
+    libera_clientes(entrada);
+
+    intercalacao_otima(NOME_ARQUIVO_SAIDA, 2, nomes,4);
+
+    saida = le_clientes(NOME_ARQUIVO_SAIDA);
+    libera_clientes(saida);
+
+    FILE* out = fopen(NOME_ARQUIVO_SAIDA,"rb");
+    TCliente* c;
+    while ((c = le_cliente(out)) != NULL)
+        imprime_cliente(c);
+    free(c);
+}
 
 int main(){
+    //unit test run
+    runUnitTests();
 
     //Teste 1 Intercalacao Basico. Arquivo p1.dat vazio deve criar saida.dat vazio.
     teste01();
@@ -212,6 +289,9 @@ int main(){
 
     //Teste 3 Intercalacao Basico. Onze particoes.
     teste03();
+
+    //Teste 4 Intercalacao OTIMA. Duas particoes.
+    teste04();
 
     return 0;
 }
