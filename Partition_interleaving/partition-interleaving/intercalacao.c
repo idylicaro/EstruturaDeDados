@@ -2,6 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include <stdlib.h>
 #include "intercalacao.h"
 #include "nomes.h"
 #include "cliente.h"
@@ -101,8 +102,35 @@ void intercalacao_arv_vencedores(char *nome_arquivo_saida, int num_p, Nomes *nom
     //TODO: Implementar essa função
 }
 
+
+
 void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_particoes, int f) {
-    //TODO: Implementar essa função
-    //Dica: usar implementação da árvore de vencedores ou implementação básica
+    FILE *out;
+    FILE **p = malloc(3 * sizeof(FILE));  // need ** because in array element need to be FILE pointer
+
+    if ((out = fopen(nome_arquivo_saida, "wb")) == NULL) {
+        printf("Erro ao abrir arquivo de sa?da\n");
+    }else{
+        do{
+            for (int i = 0; i < (f - 1); i++) {
+                if (nome_particoes == NULL) { break; }
+                p[i] = fopen(nome_particoes->nome, "rw");
+                nome_particoes = nome_particoes->prox;
+            }
+
+        }while (num_p > 1);
+    }// Fim do primeiro else
+
 }
 
+int countPartitions(FILE **p, int sizeP){
+    int count = 0;
+    TCliente *aux;
+    for (int i = 0; i < sizeP; ++i) {
+        if((aux = le_cliente(p[i])) != NULL){
+            count++;
+        }
+        rewind(p[i]);
+    }
+    return count;
+}

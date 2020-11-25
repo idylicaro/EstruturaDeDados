@@ -26,6 +26,9 @@ void intercalacao_arv_vencedores(char *nome_arquivo_saida, int num_p, Nomes *nom
 // f: numero máximo de arquivos que podem ser abertos de cada vez
 void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_particoes, int f);
 
+// utility functions
+int countPartitions(FILE **p, int sizeP);
+
 #endif
 
 #endif //PARTITION_INTERLEAVING_INTERCALACAO_H
