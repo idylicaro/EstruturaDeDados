@@ -115,6 +115,7 @@ void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_partico
         printf("Erro ao abrir arquivo de sa?da\n");
     }else{
         do{
+            Nomes nomesInUse = *nome_particoes;
             int count_partitions_in_use = 0;
             for (int i = 0; i < (f - 1); i++) {
                 p[i] = fopen(nome_particoes->nome, "rw");
@@ -123,11 +124,30 @@ void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_partico
                     lastPartitionName = nome_particoes->nome;
                     break;
                 }
-                nome_particoes = nome_particoes->prox;
+                *nome_particoes = *nome_particoes->prox;
             }
-            idLastPartition = catchPartitionId(lastPartitionName);
 
-            //
+            char auxNomes_name[20];
+
+            if((num_p - count_partitions_in_use) == 0){
+                strcpy(auxNomes_name , nome_arquivo_saida);
+            }else{ // ai cria partição px+1.dat
+                idLastPartition = catchPartitionId(lastPartitionName);
+                auxNomes_name[0] = 'p';
+                char auxId[10] = "";
+                itoa(idLastPartition + 1,auxId,10);
+                strcat(auxNomes_name, auxId) ;
+                strcat(auxNomes_name, ".dat");
+            }
+
+            inverte_nomes(nome_particoes);
+            nome_particoes = cria_nomes(auxNomes_name,nome_particoes);
+            inverte_nomes(nome_particoes);
+
+            intercalacao_basico(auxNomes_name,count_partitions_in_use,&nomesInUse);
+            nome_arquivo_saida = auxNomes_name;
+            num_p -= count_partitions_in_use;
+            // Todo: usar a intercalacao_basico() com esse ultimo nome da partição
 
         }while (num_p > 1);
     }// Fim do primeiro else

@@ -29,12 +29,23 @@ int inverte_nomes_test(){
         nomes = nomes->prox;
     return first == nomes->nome ? TRUE:FALSE;
 }
+void auxTestRemove(Nomes *nome_particoes){
+    *nome_particoes = *nome_particoes->prox;
+}
+int remove_nome_test(){
+    nomes = cria_nomes(cria_str("p1.dat"), cria_nomes(cria_str("p2.dat"), NULL));
+    auxTestRemove(nomes);
+    char *first = nomes->nome;
+    return (strcmp(first,"p2.dat") == 0) ? TRUE:FALSE;
+}
+
 int catch_id_partition(char * name,int expectedId){
     return (catchPartitionId(name) == expectedId)? TRUE:FALSE;
 }
 void runUnitTests(){
     printf("========= UNIT TESTS ========\n");
     UnitTest(TRUE,inverte_nomes_test(),"Ensures the behavior of the function that inverts the list of names");
+    UnitTest(TRUE,remove_nome_test(),"Ensures the behavior of move in the function");
     UnitTest(TRUE,catch_id_partition("p2.dat",2),"Ensure catch_id_partition returns correct value");
     UnitTest(TRUE,catch_id_partition("p22.dat",22),"Ensure catch_id_partition returns correct value");
     printf("\n================================================================================================\n\n");
@@ -252,7 +263,7 @@ void teste04(){
     salva_clientes("p2.dat", entrada);
     libera_clientes(entrada);
 
-    intercalacao_otima(NOME_ARQUIVO_SAIDA, 2, nomes,4);
+    intercalacao_otima(NOME_ARQUIVO_SAIDA, 2, nomes, 4);
 
     saida = le_clientes(NOME_ARQUIVO_SAIDA);
     libera_clientes(saida);
