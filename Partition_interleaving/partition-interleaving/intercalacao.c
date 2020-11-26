@@ -104,32 +104,34 @@ void intercalacao_arv_vencedores(char *nome_arquivo_saida, int num_p, Nomes *nom
 }
 
 
-
+char* getLastNome(Nomes nomes){
+    while (nomes.prox != NULL)
+        nomes = *nomes.prox;
+    return nomes.nome;
+}
 void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_particoes, int f) {
-    FILE *out;
-    FILE **p = malloc(3 * sizeof(FILE));  // need ** because in array element need to be FILE pointer / p is vector of partitions
+    FILE **p = malloc((f-1) * sizeof(FILE));  // need ** because in array element need to be FILE pointer / p is vector of partitions
     int idLastPartition = NULL;
-    char *lastPartitionName;
-
-    if ((out = fopen(nome_arquivo_saida, "wb")) == NULL) {
-        printf("Erro ao abrir arquivo de sa?da\n");
-    }else{
+    char lastPartitionName [20] = "";
         do{
             Nomes nomesInUse = *nome_particoes;
+
+            //ultimo nome
+            strcpy(lastPartitionName,getLastNome(nomesInUse));
+
+
             int count_partitions_in_use = 0;
             for (int i = 0; i < (f - 1); i++) {
                 p[i] = fopen(nome_particoes->nome, "rw");
                 count_partitions_in_use++;
                 if (nome_particoes->prox == NULL) {
-                    lastPartitionName = nome_particoes->nome;
                     break;
                 }
-                *nome_particoes = *nome_particoes->prox;
             }
 
-            char auxNomes_name[20];
+            char auxNomes_name[20] = "";
 
-            if((num_p - count_partitions_in_use) == 0){
+            if((num_p - (count_partitions_in_use - 1)) <= 1){
                 strcpy(auxNomes_name , nome_arquivo_saida);
             }else{ // ai cria partição px+1.dat
                 idLastPartition = catchPartitionId(lastPartitionName);
@@ -146,12 +148,13 @@ void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_partico
 
             intercalacao_basico(auxNomes_name,count_partitions_in_use,&nomesInUse);
             nome_arquivo_saida = auxNomes_name;
-            num_p -= count_partitions_in_use;
-            // Todo: usar a intercalacao_basico() com esse ultimo nome da partição
+            num_p -= (count_partitions_in_use - 1);
+
+            for(int i =0; i < count_partitions_in_use;i++){
+                fclose(p[i]);
+            }
 
         }while (num_p > 1);
-    }// Fim do primeiro else
-
 }
 
 int countPartitions(FILE **p, int sizeP){
