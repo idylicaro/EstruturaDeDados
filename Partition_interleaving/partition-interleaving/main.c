@@ -29,6 +29,12 @@ int inverte_nomes_test(){
         nomes = nomes->prox;
     return first == nomes->nome ? TRUE:FALSE;
 }
+int inverte_again_nomes_test(){
+    nomes = cria_nomes(cria_str("p1.dat"), cria_nomes(cria_str("p2.dat"), NULL));
+    char *first = nomes->nome;
+    inverte_nomes(nomes);
+    return first == nomes->nome ? TRUE:FALSE;
+}
 void auxTestRemove(Nomes *nome_particoes){
     *nome_particoes = *nome_particoes->prox;
 }
@@ -45,6 +51,7 @@ int catch_id_partition(char * name,int expectedId){
 void runUnitTests(){
     printf("========= UNIT TESTS ========\n");
     UnitTest(TRUE,inverte_nomes_test(),"Ensures the behavior of the function that inverts the list of names");
+    UnitTest(TRUE,inverte_again_nomes_test(),"Ensures the behavior of the function that inverts again the list of names");
     UnitTest(TRUE,remove_nome_test(),"Ensures the behavior of move in the function");
     UnitTest(TRUE,catch_id_partition("p2.dat",2),"Ensure catch_id_partition returns correct value");
     UnitTest(TRUE,catch_id_partition("p22.dat",22),"Ensure catch_id_partition returns correct value");

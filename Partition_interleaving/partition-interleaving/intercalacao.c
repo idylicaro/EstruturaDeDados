@@ -127,17 +127,18 @@ void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_partico
                 if (nome_particoes->prox == NULL) {
                     break;
                 }
+                nome_particoes = nome_particoes->prox;
             }
 
             char auxNomes_name[20] = "";
 
-            if((num_p - (count_partitions_in_use - 1)) <= 1){
+            if((num_p - count_partitions_in_use) == 0){
                 strcpy(auxNomes_name , nome_arquivo_saida);
             }else{ // ai cria partição px+1.dat
                 idLastPartition = catchPartitionId(lastPartitionName);
                 auxNomes_name[0] = 'p';
                 char auxId[10] = "";
-                itoa(idLastPartition + 1,auxId,10);
+                sprintf(auxId,"%i",idLastPartition + 1);
                 strcat(auxNomes_name, auxId) ;
                 strcat(auxNomes_name, ".dat");
             }
@@ -147,7 +148,6 @@ void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_partico
             inverte_nomes(nome_particoes);
 
             intercalacao_basico(auxNomes_name,count_partitions_in_use,&nomesInUse);
-            nome_arquivo_saida = auxNomes_name;
             num_p -= (count_partitions_in_use - 1);
 
             for(int i =0; i < count_partitions_in_use;i++){
