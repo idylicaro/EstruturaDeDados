@@ -25,6 +25,9 @@ int inverte_nomes_test(){
     nomes = cria_nomes(cria_str("p1.dat"), cria_nomes(cria_str("p2.dat"), NULL));
     char *first = nomes->nome;
     inverte_nomes(nomes);
+    if(nomes->prox == NULL){
+        return FALSE;
+    }
     while (nomes->prox != NULL)
         nomes = nomes->prox;
     return first == nomes->nome ? TRUE:FALSE;
@@ -33,6 +36,13 @@ int inverte_again_nomes_test(){
     nomes = cria_nomes(cria_str("p1.dat"), cria_nomes(cria_str("p2.dat"), NULL));
     char *first = nomes->nome;
     inverte_nomes(nomes);
+    if(nomes->prox == NULL){
+        return FALSE;
+    }
+    inverte_nomes(nomes);
+    if(nomes->prox == NULL){
+        return FALSE;
+    }
     return first == nomes->nome ? TRUE:FALSE;
 }
 void auxTestRemove(Nomes *nome_particoes){
