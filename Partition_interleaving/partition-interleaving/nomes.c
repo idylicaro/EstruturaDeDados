@@ -45,20 +45,33 @@ int conta_nomes(Nomes *nomes)
     return qtd;
 }
 
-void inverte_nomes(Nomes *nomes)
+//void inverte_nomes(Nomes *nomes)
+//{
+//    int i;
+//    int qtd = conta_nomes(nomes);
+//    Nomes *atual = nomes;
+//    Nomes **temp = (Nomes **) malloc(sizeof(Nomes *) * (qtd + 1));
+//    temp[qtd] = NULL;
+//    for (i = qtd - 1; i >= 0; i--) {
+//        temp[i] = atual;
+//        atual = atual->prox;
+//    }
+//    for (i = 0; i < qtd; i++) {
+//        temp[i]->prox = temp[i + 1];
+//    }
+//}
+
+
+Nomes* inverte_nomes(Nomes *nomes)
 {
-    int i;
-    int qtd = conta_nomes(nomes);
-    Nomes *atual = nomes;
-    Nomes **temp = (Nomes **) malloc(sizeof(Nomes *) * (qtd + 1));
-    temp[qtd] = NULL;
-    for (i = qtd - 1; i >= 0; i--) {
-        temp[i] = atual;
-        atual = atual->prox;
+    Nomes *t, *y = nomes, *r = NULL;
+    while (y != NULL) {
+        t = y->prox;
+        y->prox = r;
+        r = y;
+        y = t;
     }
-    for (i = 0; i < qtd; i++) {
-        temp[i]->prox = temp[i + 1];
-    }
+    return r;
 }
 
 void imprime_nomes(Nomes *nomes)

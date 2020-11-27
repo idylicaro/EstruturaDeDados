@@ -24,7 +24,7 @@ void UnitTest(int expected, int actual, const char* testName){
 int inverte_nomes_test(){
     nomes = cria_nomes(cria_str("p1.dat"), cria_nomes(cria_str("p2.dat"), NULL));
     char *first = nomes->nome;
-    inverte_nomes(nomes);
+    nomes = inverte_nomes(nomes);
     if(nomes->prox == NULL){
         return FALSE;
     }
@@ -35,11 +35,11 @@ int inverte_nomes_test(){
 int inverte_again_nomes_test(){
     nomes = cria_nomes(cria_str("p1.dat"), cria_nomes(cria_str("p2.dat"), NULL));
     char *first = nomes->nome;
-    inverte_nomes(nomes);
+    nomes = inverte_nomes(nomes);
     if(nomes->prox == NULL){
         return FALSE;
     }
-    inverte_nomes(nomes);
+    nomes = inverte_nomes(nomes);
     if(nomes->prox == NULL){
         return FALSE;
     }

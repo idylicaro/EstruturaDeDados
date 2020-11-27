@@ -25,7 +25,7 @@ void libera_nomes(Nomes *nomes);
 int conta_nomes(Nomes *nomes);
 
 // Inverte lista encadeada de nomes
-void inverte_nomes(Nomes *nomes);
+Nomes* inverte_nomes(Nomes *nomes);
 
 #endif
 

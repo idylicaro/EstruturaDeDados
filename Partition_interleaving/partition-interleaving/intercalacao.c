@@ -143,9 +143,9 @@ void intercalacao_otima(char *nome_arquivo_saida, int num_p, Nomes *nome_partico
                 strcat(auxNomes_name, ".dat");
             }
 
-            inverte_nomes(nome_particoes);
+            nome_particoes = inverte_nomes(nome_particoes);
             nome_particoes = cria_nomes(auxNomes_name,nome_particoes);
-            inverte_nomes(nome_particoes);
+            nome_particoes = inverte_nomes(nome_particoes);
 
             intercalacao_basico(auxNomes_name,count_partitions_in_use,&nomesInUse);
             num_p -= (count_partitions_in_use - 1);
