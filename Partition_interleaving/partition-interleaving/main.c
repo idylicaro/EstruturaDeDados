@@ -438,7 +438,7 @@ int main(){
     teste03();
 
     //Teste 4 Intercalacao OTIMA. Duas particoes.
-    //teste04();
+    teste04();
 
     //Teste 5 Intercalacao Otima. Onze particoes.
     teste05();
