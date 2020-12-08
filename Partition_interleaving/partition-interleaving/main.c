@@ -70,7 +70,7 @@ void runUnitTests(){
 
 void teste01(){
     printf("=============================================================================\n");
-    printf("Teste 1 Intercalacao Basico. Arquivo p1.dat vazio deve criar saida.dat vazio.\n");
+    printf("Teste 1 Intercalacao Otima. Arquivo p1.dat vazio deve criar saida.dat vazio.\n");
     printf("=============================================================================\n");
     ListaClientes *entrada, *saida;
 
@@ -80,7 +80,7 @@ void teste01(){
     salva_clientes("p1.dat", entrada);
     libera_clientes(entrada);
 
-    intercalacao_basico(NOME_ARQUIVO_SAIDA, 1, nomes);
+    intercalacao_otima(NOME_ARQUIVO_SAIDA, 1, nomes,4);
     saida = le_clientes(NOME_ARQUIVO_SAIDA);
     libera_clientes(saida);
 
@@ -94,7 +94,7 @@ void teste01(){
 
 void teste02(){
     printf("============================================\n");
-    printf("Teste 2 Intercalacao Basico. Duas particoes.\n");
+    printf("Teste 2 Intercalacao Otima. Duas particoes.\n");
     printf("============================================\n");
     ListaClientes *entrada, *saida;
 
@@ -114,7 +114,7 @@ void teste02(){
     salva_clientes("p2.dat", entrada);
     libera_clientes(entrada);
 
-    intercalacao_basico(NOME_ARQUIVO_SAIDA, 2, nomes);
+    intercalacao_otima(NOME_ARQUIVO_SAIDA, 2, nomes,4);
 
     saida = le_clientes(NOME_ARQUIVO_SAIDA);
     libera_clientes(saida);
@@ -128,7 +128,7 @@ void teste02(){
 
 int teste03(){
     printf("============================================\n");
-    printf("Teste 3 Intercalacao Basico. Onze particoes.\n");
+    printf("Teste 3 Intercalacao OTIMA. Onze particoes.\n");
     printf("============================================\n");
     ListaClientes *entrada, *saida;
 
@@ -246,7 +246,7 @@ int teste03(){
     salva_clientes("p11.dat", entrada);
     libera_clientes(entrada);
 
-    intercalacao_basico(NOME_ARQUIVO_SAIDA, 11, nomes);
+    intercalacao_otima(NOME_ARQUIVO_SAIDA, 11, nomes,4);
 
     saida = le_clientes(NOME_ARQUIVO_SAIDA);
     libera_clientes(saida);
